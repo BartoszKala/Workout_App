@@ -1,0 +1,58 @@
+﻿<Window x:Class="ProjektWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjektWPF"
+        xmlns:vm="clr-namespace:ProjektWPF.ViewModels"
+        mc:Ignorable="d"
+        Background="Transparent"
+        ResizeMode="CanResizeWithGrip"
+        Title="WorkoutAndFitness" Height="768" Width="1096"
+        MinHeight="768" MinWidth="1096"
+        Icon="pack://application:,,,/Style/Img/logo.ico">
+        
+    <Window.DataContext>
+        <vm:MainViewModel x:Name="MainViewModel"/>
+    </Window.DataContext>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Style/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Border Background="#21243D" >
+        <Grid>
+            <!-- Menu boczne -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Margin="5">
+                <RadioButton Style="{StaticResource MenuButtonStyle}" Tag="/Style/Img/home.png" IsChecked="{Binding ProfileFrontButton}" Content="Profil" Margin="5" FontSize="20" Command="{Binding ProfileViewCommand}" Visibility="{Binding LogOutVisibility}"></RadioButton>
+                <RadioButton Style="{StaticResource MenuButtonStyle}" Tag="/Style/Img/exercises.png" Content="Ćwiczenia" Margin="5" FontSize="20" Command="{Binding ExercisesViewCommand}" Visibility="{Binding LogOutVisibility}"></RadioButton>
+                <!-- Plany treningowe mozna rozbic na kilka buttonów np jeden do tworzenia jeden do edycji etc. -->
+                <RadioButton Style="{StaticResource MenuButtonStyle}" Tag="/Style/Img/workouts.png" Content="Plany" Margin="5" FontSize="20" Command="{Binding WorkoutsViewCommand}" Visibility="{Binding LogOutVisibility}"></RadioButton>
+                <RadioButton Style="{StaticResource MenuButtonStyle}" Tag="/Style/Img/progress.png" Content="Postępy" Margin="5" FontSize="20" Command="{Binding ProgressViewCommand}" Visibility="{Binding LogOutVisibility}"></RadioButton>
+                <RadioButton Style="{StaticResource MenuButtonStyle}" Tag="/Style/Img/measurement.png" Content="Lista pomiarów" Margin="5" FontSize="20" Command="{Binding MeasurementViewCommand}" Visibility="{Binding LogOutVisibility}"></RadioButton>
+                <RadioButton Style="{StaticResource MenuButtonStyle}" Tag="/Style/Img/trainingHistory.png" Content="Odbyte treningi" Margin="5" FontSize="20" Command="{Binding TrainingHistoryViewCommand}" Visibility="{Binding LogOutVisibility}"></RadioButton>
+            </StackPanel>
+
+            <!-- Dół Menu bocznego Logowanie i Rejestracja potem zamienia sie w jeden button Wyloguj -->
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Column="0" Grid.Row="1" Margin="5" VerticalAlignment="Bottom">
+                    <RadioButton Content="Zaloguj się" Style="{StaticResource LoginButtonStyle}" IsChecked="{Binding LoginFrontButton}" Margin="5" FontSize="20" Command="{Binding LoginViewCommand}" Visibility="{Binding LogRegVisibility}"></RadioButton>
+                    <RadioButton Content="Zarejestruj się" Style="{StaticResource LoginButtonStyle}" Margin="5" FontSize="20" Command="{Binding RegisterViewCommand}" Visibility="{Binding LogRegVisibility}"></RadioButton>
+                    <RadioButton Style="{StaticResource MenuButtonStyle}" Content="Wyloguj się" Margin="5" FontSize="20" Command="{Binding LogOutClick}" Visibility="{Binding LogOutVisibility}"></RadioButton>
+                </StackPanel>
+            </Grid>
+            <!-- Panel odpowiedzalny za wyswietlanie podstron -->
+            <ContentControl Grid.Column="1" Margin="10" Content="{Binding CurrentView}"/>
+        </Grid>
+    </Border>
+</Window>

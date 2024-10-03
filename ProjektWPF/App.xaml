@@ -1,0 +1,67 @@
+﻿<Application x:Class="ProjektWPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ProjektWPF"
+             xmlns:viewModel="clr-namespace:ProjektWPF.ViewModels"
+             xmlns:view="clr-namespace:ProjektWPF.Views"
+             StartupUri="Views/MainWindow.xaml">
+    <Application.Resources>
+        
+        <DataTemplate DataType="{x:Type viewModel:LoginViewModel}">
+            <view:LoginPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:RegisterViewModel}">
+            <view:RegisterPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:ProfileViewModel}">
+            <view:ProfilePanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:ExercisesViewModel}">
+            <view:ExercisesPanel />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:WorkoutsViewModel}">
+            <view:WorkoutsPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:SessionViewModel}">
+            <view:SessionPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:ProgressViewModel}">
+            <view:ProgressPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:WorkoutsAddViewModel}">
+            <view:WorkoutAddPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:WorkoutModifyViewModel}">
+            <view:WorkoutModifyPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:WorkoutMenageExercisesViewModel}">
+            <view:WorkoutMenageExercisesPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:ProfileEditViewModel}">
+            <view:ProfileEditPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:ProfileChangePasswordViewModel}">
+            <view:ProfileChangePasswordPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:SelectedExerciseViewModel}">
+            <view:SelectedExercisePanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:NewMeasurementViewModel}">
+            <view:NewMeasurementPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:MeasurementViewModel}">
+            <view:MeasurementPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:TrainingHistoryViewModel}">
+            <view:TrainingHistoryPanel/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:ConnectionErrorViewModel}">
+            <view:ConnectionErrorPanel/>
+        </DataTemplate>
+
+
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Calibri" />
+        </Style>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,209 @@
+﻿<UserControl x:Class="ProjektWPF.Views.WorkoutMenageExercisesPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ProjektWPF.Views"
+             xmlns:vm="clr-namespace:ProjektWPF.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="768" d:DesignWidth="819.2">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Style/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <vm:EmptyStringToNullConverter x:Key="EmptyStringToNullConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+
+
+    <Border Background="#6962AD" CornerRadius="50">
+        <Grid>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="0.5*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.8*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="1" Grid.ColumnSpan="2" 
+                       TextAlignment="Center" 
+                       VerticalAlignment="Bottom" 
+                       Text="Zarządanie Ćwiczeniami" 
+                       FontSize="50" Foreground="White"/>
+
+            <TextBlock Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"
+                       Margin="20,0"
+                       TextWrapping="Wrap" 
+                       Text="{Binding PlanSumUpText}" 
+                       HorizontalAlignment="Stretch"
+                       VerticalAlignment="Center"
+                       FontSize="28" Foreground="White"/>
+
+            <ScrollViewer Grid.Column="1" Grid.Row="2" Grid.RowSpan="3" 
+                          VerticalScrollBarVisibility="Auto" 
+                          HorizontalScrollBarVisibility="Auto"
+                          Margin="5"
+                          BorderBrush="Navy"
+                          BorderThickness="3"
+                          >
+                <ListView VerticalAlignment="Stretch" 
+                          HorizontalAlignment="Stretch"
+                          ItemsSource="{Binding FilteredExercises}"
+                          SelectedItem="{Binding SelectedExercise, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Nazwa"
+                                DisplayMemberBinding="{Binding Name}" />
+                            <GridViewColumn Header="Część ciała"
+                                DisplayMemberBinding="{Binding BodyPart}" />
+                            <GridViewColumn Header="Poziom"
+                                DisplayMemberBinding="{Binding DifficultyLevel}" />
+                            <GridViewColumn Header="Kcal/Min"
+                                DisplayMemberBinding="{Binding CaloriesBurnedPerMinute}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </ScrollViewer>
+
+
+            <ScrollViewer Grid.Column="2" Grid.Row="2" Grid.RowSpan="3" 
+                          VerticalScrollBarVisibility="Auto" 
+                          HorizontalScrollBarVisibility="Auto"
+                          BorderBrush="Navy"
+                          BorderThickness="3"
+                          Margin="5">
+                <ListView ItemsSource="{Binding WorkoutExercisesPreviewList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding SelectedWorkoutExercise, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Kolejność" Width="32"
+                            DisplayMemberBinding="{Binding Order}"/>
+                            <GridViewColumn Header="Nazwa"
+                            DisplayMemberBinding="{Binding Name}" />
+                            <GridViewColumn Header="Część ciała"
+                            DisplayMemberBinding="{Binding BodyPart}" />
+                            <GridViewColumn Header="Poziom"
+                            DisplayMemberBinding="{Binding DifficultyLevel}" />
+                            <GridViewColumn Header="Czas[min]"
+                            DisplayMemberBinding="{Binding Duration}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </ScrollViewer>
+
+            <StackPanel Grid.Column="1" 
+                Grid.Row="5">
+                <Button
+                        Height="50"
+                        Width="200"
+                        Content="Dodaj" 
+                        Command="{Binding AddExerciseToWorkoutCommand}"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Margin="190,5,20,10"
+                        FontSize="27"
+                        Style="{StaticResource GreenButtonStyle}"/>
+                <Button
+                        Content="Usuń" 
+                        Height="50"
+                        Width="200"
+                        FontSize="27"
+                        Command="{Binding DeleteExerciseFromWorkoutCommand}"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Margin="190,0,20,0"
+                        Style="{StaticResource CancelButtonStyle}"/>
+            </StackPanel>
+            
+
+            <StackPanel Grid.Column="2" 
+                        Grid.Row="5">
+                <Button
+                        Content="Góra" 
+                        Command="{Binding MoveExerciseUpCommand}"
+                        Width="85"
+                        Height="50"
+                        Padding="12"
+                        Style="{StaticResource OrangeButtonStyle}"/>
+                <Button Grid.Column="1" 
+                        Grid.Row="5"
+                        Content="Dół" 
+                        Command="{Binding MoveExerciseDownCommand}"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Padding="12"
+                        Margin="0,5,0,5"
+                        Width="85"
+                        Height="50"
+                        Style="{StaticResource OrangeButtonStyle}"/>
+            </StackPanel>
+
+            <TextBlock Grid.Column="1" 
+                       Grid.Row="6"
+                       Margin="20,5"
+                       HorizontalAlignment="Right"  
+                       TextWrapping="Wrap" 
+                       Text="Czas trwania ćwiczenia:" 
+                       FontSize="22" Foreground="White"
+                       VerticalAlignment="Center"/>
+            <TextBox Grid.Column="2" 
+                     Grid.Row="6"
+                     Margin="20,5"
+                     Width="100"
+                     Height="36"
+                     HorizontalAlignment="Left"  
+                     TextWrapping="Wrap" 
+                     Text="{Binding DurationValue, UpdateSourceTrigger=PropertyChanged}"
+                     FontSize="22"
+                     VerticalAlignment="Center"/>
+
+            <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="7">
+                <Button Margin="0,10,0,0" Content="Zapisz" 
+                        VerticalAlignment="Center" FontSize="30" 
+                        Command="{Binding SaveExercisesChangesCommand}" Style="{StaticResource GreenButtonStyle}" 
+                        Width="450" Height="60"/>
+            </StackPanel>
+
+
+            <Button Grid.Column="1" Grid.Row="8" Grid.ColumnSpan="2"
+                    Margin="0,10,0,10"
+                    Command="{Binding ReturnToWorkoutPlansCommand}"
+                    Content="Wróć"
+                    VerticalAlignment="Top" 
+                    Style="{StaticResource CancelButtonStyle}"
+                    FontSize="30"
+                    Width="300"
+                    Height="50"/>
+            
+            <ComboBox Grid.Column="1" Grid.Row="5" 
+                      HorizontalAlignment="Left" Margin="10,34,0,0"  
+                      VerticalAlignment="Top" Width="120"
+                      ItemsSource="{Binding DiffLevelCheckBoxList}"/>
+            <ComboBox Grid.Column="1" Grid.Row="5" 
+                      HorizontalAlignment="Left" Margin="10,93,0,0"  
+                      VerticalAlignment="Top" Width="120"
+                      ItemsSource="{Binding BodyPartsCheckBoxList}"/>
+            <TextBlock Grid.Column="1" 
+                       HorizontalAlignment="Left" Margin="10,15,0,0" 
+                       Grid.Row="5" TextWrapping="Wrap" Text="Filtruj po Poziomie:" VerticalAlignment="Top"
+                       Foreground="White"/>
+            <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="10,74,0,0" Grid.Row="5" 
+                       TextWrapping="Wrap" Text="Filtruj po Części ciała:" VerticalAlignment="Top"
+                       Foreground="White"/>
+        </Grid>
+    </Border>
+</UserControl>

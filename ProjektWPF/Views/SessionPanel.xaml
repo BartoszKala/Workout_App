@@ -1,0 +1,162 @@
+﻿<UserControl x:Class="ProjektWPF.Views.SessionPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ProjektWPF.Views"
+              xmlns:gif="http://wpfanimatedgif.codeplex.com"
+             mc:Ignorable="d" 
+             d:DesignHeight="768" d:DesignWidth="1024">
+
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Style/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+
+
+    <Border Background="#2A629A" CornerRadius="50">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="15*"/>
+
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Sesja ćwiczeń" FontSize="50" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+
+            <!--<ListView Grid.Row="1" 
+                      BorderBrush="Navy"
+                      BorderThickness="3"
+                      Margin="50,10"
+                      ItemsSource="{Binding ExercisesList}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Kolejność"
+                        DisplayMemberBinding="{Binding Order}"/>
+                        <GridViewColumn Header="Nazwa"
+                        DisplayMemberBinding="{Binding Name}" />
+                        <GridViewColumn Header="Część ciała"
+                        DisplayMemberBinding="{Binding BodyPart}" />
+                        <GridViewColumn Header="Poziom trudności"
+                        DisplayMemberBinding="{Binding DifficultyLevel}" />
+                        <GridViewColumn Header="Średnie spalone kalorie na minute"
+                        DisplayMemberBinding="{Binding CaloriesBurnedPerMinute}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <Grid Grid.Row="2" Margin="0">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="5*"/>
+                </Grid.ColumnDefinitions>
+
+
+
+                <Image Source="/Style/Gifs/1.gif"   Grid.Row="2" Margin="50,20,5,20"  />
+
+                 <TextBlock Text="00.00"  Grid.Column="1"  FontSize="80"   Grid.Row="2"  HorizontalAlignment="Center" VerticalAlignment="Center"   Foreground="White"/>
+
+            </Grid>-->
+
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+
+
+
+                <Border Grid.Column="1" CornerRadius="45" Background="White" Margin="25">
+
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="3*"/>
+                            <RowDefinition Height="10*"/>
+                        </Grid.RowDefinitions>
+
+
+
+                        <Border Background="Black" CornerRadius="45" >
+
+                            <TextBlock Text="{Binding CurrentExerciseName}" Foreground="White" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                        </Border>
+
+
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5*"/>
+                                <ColumnDefinition Width="5*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock   Text="{Binding Calories}" VerticalAlignment="Center" HorizontalAlignment="Center"  FontSize="30"/>
+                            <TextBlock Grid.Column="1"  Text="{Binding TotalTimeText}" VerticalAlignment="Center" HorizontalAlignment="Center"  FontSize="30"/>
+                            <TextBlock Grid.Column="0" Text="{Binding ExercisesCounter}" FontSize="25" Margin="20,5,0,0"/>
+                            <Image Margin="20,30,20,5" gif:ImageBehavior.AnimatedSource="{Binding GifPath}" />
+                            <TextBlock Text="{Binding FormattedTime}" Visibility="{Binding IsTimerVisible}" FontSize="80" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{Binding TextColor}"/>
+
+                            <!--gif:ImageBehavior.AnimatedSource="{Binding GifPath1}"-->
+
+                            <Grid Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="6*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="1" FontSize="20" HorizontalAlignment="Center" Margin="0,10,20,0"  TextWrapping="Wrap" TextAlignment="Center" LineHeight="20" Text="{Binding NextExerciseName}"/>
+
+                            </Grid>
+                        </Grid>
+
+                    </Grid>
+                </Border>
+            </Grid>
+
+
+
+
+
+
+
+
+
+
+
+            <Grid Grid.Row="2" Margin="50,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+
+                </Grid.ColumnDefinitions>
+                <Button Content="{Binding NextButtonText}" 
+                    Command="{Binding NextExercise}" 
+                    IsEnabled="{Binding IsNextButtonEnabled}"
+                    Grid.Column="0" 
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Stretch"  Style="{StaticResource GreenButtonStyle}"  Margin="5,5,5,5" FontSize="25"/>
+
+                <Button Content="{Binding TimerButtonText}" Command="{Binding ToggleTimerCommand}" IsEnabled="{Binding IsStartStop}" Margin="5,5,5,5" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Style="{StaticResource OrangeButtonStyle}" FontSize="30"/>
+
+                <Button Content="Opuść trening" Command="{Binding GoBack}"  Margin="5,5,5,5" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Style="{StaticResource CancelButtonStyle}" FontSize="30"/>
+
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>
